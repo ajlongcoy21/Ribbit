@@ -12,6 +12,7 @@
 @interface App()
 
 @property (strong, nonatomic) NSMutableArray *messagesMutable;
+@property (strong, nonatomic) NSArray *allUsersArray;
 
 @end
 
@@ -25,6 +26,16 @@
   dispatch_once(&onceToken, ^{
     sharedApp = [[self alloc] init];
     sharedApp.messagesMutable = [NSMutableArray array];
+    
+      // moved all users array here so we dont get the issue of creating new users each time we request all users array
+      
+    sharedApp.allUsersArray = @[ [User userWithUsername:@"John"],
+                                   [User userWithUsername:@"Andrew"],
+                                   [User userWithUsername:@"Ben"],
+                                   [User userWithUsername:@"Pasan"],
+                                   [User userWithUsername:@"Amit"],
+                                   [User userWithUsername:@"Craig"],
+                                   [User userWithUsername:@"Alena"]];
   });
   
   return sharedApp;
@@ -47,13 +58,7 @@
 
 - (NSArray *)allUsers
 {
-  return  @[ [User userWithUsername:@"John"],
-             [User userWithUsername:@"Andrew"],
-             [User userWithUsername:@"Ben"],
-             [User userWithUsername:@"Pasan"],
-             [User userWithUsername:@"Amit"],
-             [User userWithUsername:@"Craig"],
-             [User userWithUsername:@"Alena"]];
+    return  _allUsersArray;
 }
 
 

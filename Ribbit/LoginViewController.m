@@ -29,10 +29,23 @@
     
     if ([username length] == 0 || [password length] == 0)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!"
+       /* UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Oops!"
                                                             message:@"Make sure you enter a username and password!"
                                                            delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alertView show];
+        [alertView show];*/
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Oops!" message:@"Make sure you enter a username and password!" preferredStyle:UIAlertControllerStyleAlert];
+        
+        //We add buttons to the alert controller by creating UIAlertActions:
+        UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:nil]; //You can use a block here to handle a press on this button
+        [alertController addAction:actionOk];
+        
+        dispatch_async(dispatch_get_main_queue(), ^
+                       {
+                           [self presentViewController:alertController animated:YES completion:nil];
+                       });
     }
     else
     {

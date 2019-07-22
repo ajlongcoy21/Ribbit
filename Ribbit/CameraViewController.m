@@ -23,7 +23,8 @@
     self.recipients = [[NSMutableArray alloc] init];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     
     self.friends = [[User currentUser] friends];
@@ -110,12 +111,14 @@
 
 #pragma mark - Image Picker Controller delegate
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
     [self dismissViewControllerAnimated:NO completion:nil];
     [self.tabBarController setSelectedIndex:0];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
     NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
     
     if ([mediaType isEqualToString:(NSString *)kUTTypeImage])
@@ -158,10 +161,24 @@
 {
     if (self.image == nil && [self.videoFilePath length] == 0)
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Try again!"
+        /*UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Try again!"
                                                             message:@"Please capture or select a photo or video to share!"
                                                            delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alertView show];
+        [alertView show];*/
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Try again!" message:@"Please capture or select a photo or video to share!" preferredStyle:UIAlertControllerStyleAlert];
+        
+        //We add buttons to the alert controller by creating UIAlertActions:
+        UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:nil]; //You can use a block here to handle a press on this button
+        [alertController addAction:actionOk];
+        
+        dispatch_async(dispatch_get_main_queue(), ^
+                       {
+                           [self presentViewController:alertController animated:YES completion:nil];
+                       });
+        
         [self presentViewController:self.imagePicker animated:NO completion:nil];
     }
     else
@@ -197,10 +214,23 @@
     [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
     {
         if (error) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred!"
+            /*UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred!"
                                                                 message:@"Please try sending your message again."
                                                                delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alertView show];
+            [alertView show];*/
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"An error occurred!" message:@"Please try sending your message again." preferredStyle:UIAlertControllerStyleAlert];
+            
+            //We add buttons to the alert controller by creating UIAlertActions:
+            UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK"
+                                                               style:UIAlertActionStyleDefault
+                                                             handler:nil]; //You can use a block here to handle a press on this button
+            [alertController addAction:actionOk];
+            
+            dispatch_async(dispatch_get_main_queue(), ^
+                           {
+                               [self presentViewController:alertController animated:YES completion:nil];
+                           });
         }
         else
         {
@@ -215,10 +245,23 @@
             {
                 if (error)
                 {
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred!"
+                    /*UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An error occurred!"
                                                                         message:@"Please try sending your message again."
                                                                        delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alertView show];
+                    [alertView show];*/
+                    
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"An error occurred!" message:@"Please try sending your message again." preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    //We add buttons to the alert controller by creating UIAlertActions:
+                    UIAlertAction *actionOk = [UIAlertAction actionWithTitle:@"OK"
+                                                                       style:UIAlertActionStyleDefault
+                                                                     handler:nil]; //You can use a block here to handle a press on this button
+                    [alertController addAction:actionOk];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^
+                                   {
+                                       [self presentViewController:alertController animated:YES completion:nil];
+                                   });
                 }
                 else
                 {

@@ -57,7 +57,7 @@ static NSInteger identifier = 1;
 
 - (NSArray*) friends
 {
-  return self.friendsMutable;
+    return self.friendsMutable;
 }
 
 
