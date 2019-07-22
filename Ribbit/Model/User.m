@@ -8,7 +8,7 @@
 
 #import "User.h"
 
-static NSInteger identifier = 1;
+static NSInteger identifier = 10;
 
 @interface User()
 @property (strong,nonatomic) NSMutableArray *friendsMutable;
