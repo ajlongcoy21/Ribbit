@@ -198,7 +198,8 @@
     
     if (self.image != nil)
     {
-        UIImage *newImage = self.image;
+       // UIImage *newImage = self.image;
+        UIImage *newImage = [self resizeImage:self.image toWidth:30.0 andHeight:30.0];
         fileData = UIImagePNGRepresentation(newImage);
         fileName = [NSString stringWithFormat:@"%f.png",[NSDate timeIntervalSinceReferenceDate]];
         fileType = @"image";
